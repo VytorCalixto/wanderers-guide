@@ -1,4 +1,4 @@
-name: npm run build
+name: Update schema
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./scripts
+        working-directory: ./data
     permissions:
       contents: write
 
