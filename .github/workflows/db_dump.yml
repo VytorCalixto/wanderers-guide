@@ -1,0 +1,26 @@
+name: npm run build
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  dump-database:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
+    permissions:
+      contents: write
+
+    steps:
+      - name: Setup postgres
+        uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '15'
+      - name: Dump Database
+        env:
+          DB_URI: ${{ secrets.DB_URI }}
+        run: ./dump.sh $DB_URI
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
